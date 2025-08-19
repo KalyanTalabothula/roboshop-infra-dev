@@ -20,4 +20,12 @@ module "vpc" {
 
 # output "vpc_id" {
 #     value = module.vpc.vpc_id
+# }  
+
+# output "vpc_ids" {      # <--- list kada 
+#     value = module.vpc.public_subnet_ids
 # }
+
+# value = module.vpc.(vpc_id), ee module devlop chesina vallu, valla output lo yedi echhi unte adi..
+# value = module.vpc.(public_subnet_ids) same here too... ala ney manadi subnet ID's kabatti string list anedi suit avutumdhi. if you go and check in aws console ssm-parameters. ala ney TUPLE 0r LIST anna same. 
+# then run the command in 00-vpc  $ terraform init -upgrade 
