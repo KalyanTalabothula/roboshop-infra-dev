@@ -107,3 +107,14 @@ resource "aws_security_group_rule" "vpn_943" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = module.vpn.sg_id
 }
+
+# backend ALB accepting connections freom my VPN host on port no 80
+resource "aws_security_group_rule" "backend_alb_vpn" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
+  security_group_id = module.backend_alb.sg_id 
+}
