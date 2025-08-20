@@ -71,3 +71,39 @@ resource "aws_security_group_rule" "backend_alb_bastion" {
 }
 
 # cidr_blocks = ["0.0.0.0/0"] kadu ekkada, either sources security group ina evvali or Cide_blocks ina evvali.. source yekkad nimdi vastumdhi, Traffic source bastion nimdi kada, so i can give bastion 
+
+resource "aws_security_group_rule" "vpn_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = module.vpn.sg_id
+}
+
+resource "aws_security_group_rule" "vpn_https" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = module.vpn.sg_id
+}
+
+resource "aws_security_group_rule" "vpn_1194" {
+  type              = "ingress"
+  from_port         = 1194
+  to_port           = 1194
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = module.vpn.sg_id
+}
+
+resource "aws_security_group_rule" "vpn_943" {
+  type              = "ingress"
+  from_port         = 943
+  to_port           = 943
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = module.vpn.sg_id
+}
