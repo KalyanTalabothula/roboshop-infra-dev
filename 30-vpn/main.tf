@@ -1,5 +1,6 @@
 # 🔍 aws key terraform
 # for windows nedd to use \\ double backslash, as well add pubkey. For Linu or MAC use / --> forward-slash. Now e file ni access chesi import chestumdhi AWS lopaliki. miru access cheyali annappudu mana dhaggara unte private key tho private sever ni acces cheyali. 
+
 resource "aws_key_pair" "openvpn" {
   key_name   = "openvpn"
   public_key = file("C:\\Users\\HP\\git-repo\\openvpn.pub") 
