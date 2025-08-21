@@ -1,5 +1,5 @@
 # 🔍 aws key terraform
-# for windows use \\ double backslash, as well add pubkey. For MAC use / --> forward-slash
+# for windows nedd to use \\ double backslash, as well add pubkey. For MAC use / --> forward-slash
 resource "aws_key_pair" "openvpn" {
   key_name   = "openvpn"
   public_key = file("C:\\Users\\HP\\git-repo\\openvpn.pub") 
