@@ -211,6 +211,7 @@ resource "aws_security_group_rule" "mysql_vpn_ssh" {
 }
 
 # Rabbitmq accepting connections from my VPN host on port no :5672
+# opened as part of some jira-321 from DB team
 resource "aws_security_group_rule" "rabbitmq_vpn_ssh" {
   count =length(var.rabbitmq_ports_vpn)
   type              = "ingress"
