@@ -24,3 +24,8 @@ variable "bastion_sg_name" {
 variable "bastion_sg_description" {
     default = "created sg for bastion instance"
 }
+
+# port No: 22 --> manam VPN ki connect avvataniki, 27017 --> mongodb ki connect avvataniki. 
+variable "mongdb_ports_vpn" {
+    default = [22, 27017]
+}

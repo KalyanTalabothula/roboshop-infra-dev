@@ -43,6 +43,17 @@ module "vpn" {
     vpc_id = local.vpc_id
 }
 
+module "mongodb" {
+    #source = "../../terraform-aws-securitygroup"
+    source = "git::https://github.com/KalyanTalabothula/terraform-aws-securitygroup.git?ref=main"
+    project = var.project
+    environment = var.environment
+    
+    sg_name = "mongodb"
+    sg_description = "for mongodb"
+    vpc_id = local.vpc_id
+}
+
 # 🔍 aws security group rule terraform, i mean ingress
 # bastion accepting connection from my laptop, ade miru office lo ite mii network istaru anamata, I mean CIDR
 
@@ -108,7 +119,7 @@ resource "aws_security_group_rule" "vpn_943" {
   security_group_id = module.vpn.sg_id
 }
 
-# backend ALB accepting connections freom my VPN host on port no 80
+# backend ALB accepting connections from my VPN host on port no 80
 resource "aws_security_group_rule" "backend_alb_vpn" {
   type              = "ingress"
   from_port         = 80
@@ -118,3 +129,26 @@ resource "aws_security_group_rule" "backend_alb_vpn" {
   # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
   security_group_id = module.backend_alb.sg_id 
 }
+
+# Mongodb accepting connections from my VPN host on port no 22, 27017
+resource "aws_security_group_rule" "mongodb_vpn_ssh" {
+  count =length(var.mongdb_ports_vpn)
+  type              = "ingress"
+  from_port         = var.mongdb_ports_vpn[count.index]
+  to_port           = var.mongdb_ports_vpn[count.index]
+  protocol          = "tcp"    # 👉 ssh is part of TCP protocol only. 
+  source_security_group_id = module.vpn.sg_id
+  # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
+  security_group_id = module.mongodb.sg_id 
+}
+
+/* # backend ALB accepting connections freom my VPN host on port no 80
+resource "aws_security_group_rule" "mongodb_vpn" {
+  type              = "ingress"
+  from_port         = 27017
+  to_port           = 27017
+  protocol          = "tcp"  
+  source_security_group_id = module.vpn.sg_id
+  # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
+  security_group_id = module.mongodb.sg_id 
+} */
