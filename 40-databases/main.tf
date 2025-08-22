@@ -24,7 +24,7 @@ resource "aws_instance" "mongodb" {
 
 resource "terraform_data" "mongodb" {
   triggers_replace = [
-    aws_instance.mongodb
+    aws_instance.mongodb.id # full instance kadu, only mongodb id anedi change ite ed itrigger avutmdhi, so .id 
   ]
   
    # Copies the myapp.conf file to /etc/myapp.conf
