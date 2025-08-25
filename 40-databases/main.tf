@@ -145,7 +145,7 @@ resource "aws_instance" "rabbitmq" {
 
 resource "terraform_data" "rabbitmq" {
   triggers_replace = [
-    aws_instance.rabbitmql.id  
+    aws_instance.rabbitmq.id  
   ]
   
   provisioner "file" {
