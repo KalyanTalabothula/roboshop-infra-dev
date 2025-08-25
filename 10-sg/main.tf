@@ -233,3 +233,53 @@ resource "aws_security_group_rule" "rabbitmq_vpn_ssh" {
   # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
   security_group_id = module.rabbitmq.sg_id 
 }
+
+resource "aws_security_group_rule" "catalogue_backend_alb" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  source_security_group_id = module.backend_alb.sg_id  
+  # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
+  security_group_id = module.catalogue.sg_id # edi manam catalogue lo create chestunnam
+}
+
+resource "aws_security_group_rule" "catalogue_vpn_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
+  security_group_id = module.catalogue.sg_id 
+}
+
+resource "aws_security_group_rule" "catalogue_vpn_http" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
+  security_group_id = module.catalogue.sg_id 
+}
+
+resource "aws_security_group_rule" "catalogue_bastion" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id = module.bastion.sg_id
+  # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
+  security_group_id = module.catalogue.sg_id 
+}
+
+resource "aws_security_group_rule" "mongodb_catalogue" {
+  type              = "ingress"
+  from_port         = 27017
+  to_port           = 27017
+  protocol          = "tcp"
+  source_security_group_id = module.catalogue.sg_id   # source is coming from catalogue
+  # ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block] No need for US
+  security_group_id = module.mongodb.sg_id   # going to mongodb
+}
