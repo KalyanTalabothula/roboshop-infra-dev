@@ -7,3 +7,11 @@ variable "environment" {
     type = string
     default = "dev"
 }
+
+variable "zone_id" {
+    default = "Z00927541W472WAHJVTNL"
+}
+
+variable "zone_name" {
+  default = "kalyanu.xyz"
+}
