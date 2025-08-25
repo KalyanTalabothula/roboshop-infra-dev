@@ -87,6 +87,17 @@ module "rabbitmq" {
     vpc_id = local.vpc_id
 }
 
+module "catalogue" {
+    #source = "../../terraform-aws-securitygroup"
+    source = "git::https://github.com/KalyanTalabothula/terraform-aws-securitygroup.git?ref=main"
+    project = var.project
+    environment = var.environment
+    
+    sg_name = "catalogue"
+    sg_description = "for catalogue"
+    vpc_id = local.vpc_id
+}
+
 # 🔍 aws security group rule terraform, i mean ingress
 # bastion accepting connection from my laptop, ade miru office lo ite mii network istaru anamata, I mean CIDR
 
