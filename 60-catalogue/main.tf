@@ -75,11 +75,11 @@ resource "aws_ami_from_instance" "catalogue" {
 }
 
 # 🔍 aws command line to terminate ec2
-resource "terraform_data" "catalogue_delete" {
+resource "terraform_data" "catalogue_delete" {   # <-- for delete ec2 instance
   triggers_replace = [
     aws_instance.catalogue.id  
   ]
-  
+
   # make sure you have aws configure in your laptop 
     provisioner "local-exec" {  # <-- local-exec
     command = "aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}"
