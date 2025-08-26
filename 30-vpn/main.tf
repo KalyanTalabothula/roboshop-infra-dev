@@ -24,3 +24,12 @@ resource "aws_instance" "vpn" {
     }
   )
 }
+
+# 🔍 aws route53 terraform
+resource "aws_route53_record" "vpn" {
+  zone_id = var.zone_id
+  name    = "vpn-${var.environment}.${var.zone_name}"
+  type    = "A"
+  ttl     = 300
+  records = [aws_eip.lb.public_ip]
+}
