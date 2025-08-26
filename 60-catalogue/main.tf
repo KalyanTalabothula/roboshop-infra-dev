@@ -74,29 +74,16 @@ resource "aws_ami_from_instance" "catalogue" {
   depends_on = [ aws_ec2_instance_state.catalogue ]  # instance mottam stop ina tarawata, nenu AMI tisukovali. 
 }
 
+# 🔍 aws command line to terminate ec2
 resource "terraform_data" "catalogue_delete" {
   triggers_replace = [
     aws_instance.catalogue.id  
   ]
   
-  provisioner "file" {
-    source      = "catalogue.sh"
-    destination = "/tmp/catalogue.sh"
+  # make sure you have aws configure in your laptop 
+    provisioner "local-exec" {  # <-- local-exec
+    command = "aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}"
   }
 
-  connection {
-    type     = "ssh"
-    user     = "ec2-user"     
-    password = "DevOps321"
-    host     = aws_instance.catalogue.private_ip    
-  }
-
-    provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/catalogue.sh",
-      "sudo sh /tmp/catalogue.sh catalogue ${var.environment}"
-    ]
-  }
-
-  depends_on = [ aws_ami_from_instance.catalogue ] # aws instance create ina taruwata gha 
+  depends_on = [ aws_ami_from_instance.catalogue ] # aws AMI create ina taruwata gha 
 }
