@@ -138,3 +138,6 @@ resource "aws_launch_template" "catalogue" {
     )
 
 }
+
+# 👉 So in your code: That’s why you mentioned { tag_specifications } only for instance and volume – because those are the ones that need tagging at creation time. The launch template itself is tagged separately using { tags }.
+
