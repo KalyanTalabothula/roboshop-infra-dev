@@ -21,6 +21,7 @@ resource "aws_lb_target_group" "catalogue" {
 
 # prati backend component lo /health ani okati undi dhanipina hit cheste health or unhealthy ani telustumdhi
 
+# 🔍 catalogue instance ni create chestunna
 resource "aws_instance" "catalogue" {
   ami           = local.ami_id
   instance_type = "t3.micro"
@@ -61,7 +62,7 @@ resource "terraform_data" "catalogue" {
   }
 }
 
-# 🔍 aws_ec2_instance_state
+# 🔍 aws_ec2_instance_state 
 resource "aws_ec2_instance_state" "catalogue" {
   instance_id = aws_instance.catalogue.id
   state       = "stopped"   # we have 2-options stopped & running only, NO DELETE option. 
