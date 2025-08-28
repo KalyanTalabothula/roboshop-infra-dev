@@ -2,8 +2,8 @@
 
 resource "aws_lb_target_group" "catalogue" {
   name     = "${var.project}-${var.environment}-catalogue"   #roboshop-dev-catalogue
-  port     = 8080
-  protocol = "HTTP"
+  port     = 8080  # catalogue port no 8080 ni open chestunamdhi
+  protocol = "HTTP"  # Load-balancer catalogue ni hit chesetappudu HTTP pina hit chestumdhi 
   vpc_id   = local.vpc_id
   deregistration_delay = 120
 
@@ -178,7 +178,7 @@ resource "aws_autoscaling_group" "example" {
     preferences {
       min_healthy_percentage = 50
     }
-    triggers = ["launch_template"]
+    triggers = ["launch_template"] 
   }
 
   timeouts {
