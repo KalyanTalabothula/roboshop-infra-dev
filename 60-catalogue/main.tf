@@ -202,3 +202,5 @@ resource "aws_autoscaling_policy" "catalogue" {
     target_value = 75.0
   }
 }
+
+# 🔍 aws listener rule terraform
