@@ -192,7 +192,7 @@ resource "aws_autoscaling_policy" "catalogue" {
   name                   = "${var.project}-${var.environment}-catalogue"
   autoscaling_group_name = aws_autoscaling_group.catalogue.name
   policy_type            = "TargetTrackingScaling" # Target ni track chestu scale cheyatam
-  cooldown = 120  # yenta time taruwata dhini metrics collect chesukovachhu
+  #cooldown = 120  # yenta time taruwata dhini metrics collect chesukovachhu
 
   target_tracking_configuration {
     predefined_metric_specification {
