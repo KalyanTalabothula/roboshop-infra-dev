@@ -182,7 +182,7 @@ resource "aws_autoscaling_group" "example" {
   }
 
   timeouts {
-    update = "15m" # create within 15 mins lopu. 
+    update  = "15m" # create within 15 mins lopu. 
     delete = "15m" # max 15 mins lopu delete avvali.
   }
 }
@@ -191,7 +191,8 @@ resource "aws_autoscaling_group" "example" {
 resource "aws_autoscaling_policy" "catalogue" {
   name                   = "${var.project}-${var.environment}-catalogue"
   autoscaling_group_name = aws_autoscaling_group.catalogue.name
-  policy_type            = "TargetTrackingScaling"
+  policy_type            = "TargetTrackingScaling" # Target ni track chestu scale cheyatam
+  cooldown = 120
 
   target_tracking_configuration {
     predefined_metric_specification {
