@@ -142,3 +142,31 @@ resource "aws_launch_template" "catalogue" {
 
 # 👉 So in your code: That’s why you mentioned { tag_specifications } only for instance and volume – because those are the ones that need tagging at creation time. The launch template itself is tagged separately using { tags }.
 
+# 🔍 aws autoscaling group terraform 
+resource "aws_autoscaling_group" "example" {
+    name                 = "${var.project}-${var.environment}-catalogue"
+  desired_capacity   = 1
+  max_size           = 10     # you wish
+  min_size           = 1    # minimum 1 ite yeppudu run avutu undali, traffic unna lekapoeena
+  target_group_arns = [aws_lb_target_group.catalogue.arn] # its list []
+  vpc_zone_identifier = local.private_subnet_ids # both private-subnets we are giving 
+
+  launch_template {
+    id      = aws_launch_template.catalogue.id
+    version = aws_launch_template.catalogue.latest_version
+  }
+
+  tag {
+    key                 = "Key"
+    value               = "Value"
+    propagate_at_launch = true
+  }
+
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = ["tag"]
+  }
+}
