@@ -366,7 +366,7 @@ resource "aws_security_group_rule" "user_backend_alb" {
   security_group_id = module.user.sg_id
 }
 
-#Cart
+#Cart accepting connections
 resource "aws_security_group_rule" "cart_vpn_ssh" {
   type              = "ingress"
   from_port         = 22
@@ -403,7 +403,7 @@ resource "aws_security_group_rule" "cart_backend_alb" {
   security_group_id = module.cart.sg_id
 }
 
-#Shipping
+#Shipping accepting connections
 resource "aws_security_group_rule" "shipping_vpn_ssh" {
   type              = "ingress"
   from_port         = 22
@@ -440,7 +440,7 @@ resource "aws_security_group_rule" "shipping_backend_alb" {
   security_group_id = module.shipping.sg_id
 }
 
-#Payment
+#Payment accepting connections
 resource "aws_security_group_rule" "payment_vpn_ssh" {
   type              = "ingress"
   from_port         = 22
@@ -477,7 +477,7 @@ resource "aws_security_group_rule" "payment_backend_alb" {
   security_group_id = module.payment.sg_id
 }
 
-#Backend ALB
+#Backend ALB accepting connections
 resource "aws_security_group_rule" "backend_alb_vpn" {
   type              = "ingress"
   from_port         = 80
@@ -532,7 +532,7 @@ resource "aws_security_group_rule" "backend_alb_payment" {
   security_group_id = module.backend_alb.sg_id
 }
 
-#Frontend
+#Frontend accepting connections
 resource "aws_security_group_rule" "frontend_vpn" {
   type              = "ingress"
   from_port         = 22
@@ -560,7 +560,7 @@ resource "aws_security_group_rule" "frontend_frontend_alb" {
   security_group_id = module.frontend.sg_id
 }
 
-#Frontend ALB
+#Frontend ALB accepting connections
 resource "aws_security_group_rule" "frontend_alb_http" {
   type              = "ingress"
   from_port         = 80
