@@ -96,3 +96,45 @@ resource "terraform_data" "catalogue_delete" {   # <-- for delete ec2 instance
 
   depends_on = [ aws_ami_from_instance.catalogue ] # aws AMI create ina taruwata gha 
 }
+
+# 🔍 aws launch template terraform 
+resource "aws_launch_template" "catalogue" {
+  name = "${var.project}-${var.environment}-catalogue"  # This name will display in console
+  image_id = aws_instance.catalogue.id
+  instance_initiated_shutdown_behavior = "terminate" # ASG traffic tagginappudu STOP cheyatam kadu, terminate cheyali
+  instance_type = "t3.micro"
+  vpc_security_group_ids = [local.catalogue_sg_id]
+  
+  # This tag is for Instance
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = merge(
+      local.common_tags,
+      {
+        Name = "${var.project}-${var.environment}-catalogue"
+      }
+    )
+  }
+
+  # This tag is for Volume
+  tag_specifications {
+    resource_type = "volume"
+
+    tags = merge(
+      local.common_tags,
+      {
+        Name = "${var.project}-${var.environment}-catalogue"
+      }
+    )
+  }
+  
+  # Launch template tags 
+    tags = merge(
+      local.common_tags,
+      {
+        Name = "${var.project}-${var.environment}-catalogue"
+      }
+    )
+
+}
