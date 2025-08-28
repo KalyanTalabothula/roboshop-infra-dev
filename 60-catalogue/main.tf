@@ -156,10 +156,19 @@ resource "aws_autoscaling_group" "example" {
     version = aws_launch_template.catalogue.latest_version
   }
 
-  tag {
-    key                 = "Key"
-    value               = "Value"
+  dynamic "tag" {
+    for_each = merge(
+      local.common_tags,
+      {
+        Name = "${var.project}-${var.environment}-catalogue"
+      }
+    )
+    content {
+     key                 = tag.key
+    value               = tag.value 
     propagate_at_launch = true
+    }
+
   }
 
   instance_refresh {
