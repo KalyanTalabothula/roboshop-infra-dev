@@ -104,6 +104,7 @@ resource "aws_launch_template" "catalogue" {
   instance_initiated_shutdown_behavior = "terminate" # ASG traffic tagginappudu STOP cheyatam kadu, terminate cheyali
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.catalogue_sg_id]
+  update_default_version = true # Whenever u give terraform apply command --> New version will become default
   
   # EC2/Instance tags created by ASG
   tag_specifications {
