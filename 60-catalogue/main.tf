@@ -182,7 +182,7 @@ resource "aws_autoscaling_group" "example" {
   }
 
   timeouts {
-    update  = "15m" # create within 15 mins lopu. 
+    #update  = "15m" # create within 15 mins lopu. 
     delete = "15m" # max 15 mins lopu delete avvali.
   }
 }
@@ -219,3 +219,5 @@ resource "aws_lb_listener_rule" "catalogue" {
     }
   }
 }
+
+
