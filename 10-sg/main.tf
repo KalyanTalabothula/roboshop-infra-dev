@@ -1,3 +1,5 @@
+
+# creating all security groups 
 module "mongodb" {
     #source = "../../terraform-aws-securitygroup"
     source = "git::https://github.com/KalyanTalabothula/terraform-aws-securitygroup.git?ref=main"
@@ -152,7 +154,7 @@ module "vpn" {
     vpc_id = local.vpc_id
 }
 
-# MongoDB
+# MongoDB accepting connections
 resource "aws_security_group_rule" "mongodb_vpn" {
   count = length(var.mongodb_ports_vpn)
   type              = "ingress"
@@ -191,7 +193,7 @@ resource "aws_security_group_rule" "mongodb_user" {
   security_group_id = module.mongodb.sg_id
 }
 
-# Redis
+# Redis accepting connections
 resource "aws_security_group_rule" "redis_vpn" {
   count = length(var.redis_ports_vpn)
   type              = "ingress"
@@ -230,7 +232,7 @@ resource "aws_security_group_rule" "redis_cart" {
   security_group_id = module.redis.sg_id
 }
 
-# MYSQL
+# MYSQL accepting connections
 resource "aws_security_group_rule" "mysql_vpn" {
   count = length(var.mysql_ports_vpn)
   type              = "ingress"
@@ -260,7 +262,7 @@ resource "aws_security_group_rule" "mysql_shipping" {
   security_group_id = module.mysql.sg_id
 }
 
-# RabbitMQ
+# RabbitMQ accepting connections
 resource "aws_security_group_rule" "rabbitmq_vpn" {
   count = length(var.rabbitmq_ports_vpn)
   type              = "ingress"
@@ -290,7 +292,7 @@ resource "aws_security_group_rule" "rabbitmq_payment" {
   security_group_id = module.rabbitmq.sg_id
 }
 
-#Catalogue
+#Catalogue accepting connections
 resource "aws_security_group_rule" "catalogue_vpn_ssh" {
   type              = "ingress"
   from_port         = 22
@@ -327,7 +329,7 @@ resource "aws_security_group_rule" "catalogue_backend_alb" {
   security_group_id = module.catalogue.sg_id
 }
 
-#User
+#User accepting connections
 resource "aws_security_group_rule" "user_vpn_ssh" {
   type              = "ingress"
   from_port         = 22
