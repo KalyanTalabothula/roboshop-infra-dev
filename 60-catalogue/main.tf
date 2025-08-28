@@ -176,6 +176,11 @@ resource "aws_autoscaling_group" "example" {
     preferences {
       min_healthy_percentage = 50
     }
-    triggers = ["tag"]
+    triggers = ["launch_template"]
+  }
+
+  timeouts {
+    update = "15m" # create within 15 mins lopu. 
+    delete = "15m" # max 15 mins lopu delete avvali.
   }
 }
