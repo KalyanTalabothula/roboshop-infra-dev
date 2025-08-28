@@ -105,7 +105,7 @@ resource "aws_launch_template" "catalogue" {
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.catalogue_sg_id]
   
-  # This tag is for Instance
+  # EC2/Instance tags created by ASG
   tag_specifications {
     resource_type = "instance"
 
@@ -117,7 +117,7 @@ resource "aws_launch_template" "catalogue" {
     )
   }
 
-  # This tag is for Volume
+  # This tag is for volume created by ASG
   tag_specifications {
     resource_type = "volume"
 
@@ -128,7 +128,7 @@ resource "aws_launch_template" "catalogue" {
       }
     )
   }
-  
+
   # Launch template tags 
     tags = merge(
       local.common_tags,
