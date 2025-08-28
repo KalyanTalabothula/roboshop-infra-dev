@@ -150,6 +150,8 @@ resource "aws_autoscaling_group" "example" {
   min_size           = 1    # minimum 1 ite yeppudu run avutu undali, traffic unna lekapoeena
   target_group_arns = [aws_lb_target_group.catalogue.arn] # its list []
   vpc_zone_identifier = local.private_subnet_ids # both private-subnets we are giving 
+  health_check_grace_period = 90 # Launch chesina instance oka 90sec time istumdhi, then it will start health check
+  health_check_type = "ELB" # ELB 0r ALB both are same names only. 
 
   launch_template {
     id      = aws_launch_template.catalogue.id
@@ -182,5 +184,20 @@ resource "aws_autoscaling_group" "example" {
   timeouts {
     update = "15m" # create within 15 mins lopu. 
     delete = "15m" # max 15 mins lopu delete avvali.
+  }
+}
+
+# 🔍 aws autoscaling policy terraform
+resource "aws_autoscaling_policy" "catalogue" {
+  name                   = "${var.project}-${var.environment}-catalogue"
+  autoscaling_group_name = aws_autoscaling_group.catalogue.name
+  policy_type            = "TargetTrackingScaling"
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 75.0
   }
 }
