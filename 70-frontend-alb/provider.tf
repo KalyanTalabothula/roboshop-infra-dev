@@ -12,7 +12,7 @@ terraform {
 
   backend "s3" {        # <-- backend is ntg but state ani ardham.
     bucket = "s3-kalyan-bucket-dev"   # <--- dev ani echhanm
-    key    = "roboshop-dev-backend-alb"    # <--- giving key as "remote-state-demo"
+    key    = "roboshop-dev-frontend-alb"    # <--- giving key as "remote-state-demo"
     region = "us-east-1"
     encrypt = true
     use_lockfile = true 

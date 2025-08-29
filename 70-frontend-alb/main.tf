@@ -31,7 +31,7 @@ resource "aws_lb_listener" "frontend_alb" {
 
     fixed_response {
       content_type = "text/html" # <--
-      message_body = "<h1>Hello, I am from Backend ALB Listener<h1>" # <--
+      message_body = "<h1>Hello, I am from Frontend ALB Listener using HTTPS<h1>" # <--
       status_code  = "200"
     }
   }
@@ -44,7 +44,7 @@ resource "aws_lb_listener" "frontend_alb" {
 # aws record terraform then take alias record example 
 resource "aws_route53_record" "frontend_alb" {
   zone_id = var.zone_id
-  name    = "*.backend-dev.${var.zone_name}"  # <-- *.backend
+  name    = "*.${var.zone_name}"  # <-- *.daws84s.site
   type    = "A"
 
   alias {
