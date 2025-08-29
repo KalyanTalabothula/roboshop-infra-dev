@@ -1,6 +1,6 @@
 # 🔍  aws acm terraform
 resource "aws_acm_certificate" "kalyanu" {    # <--
-  domain_name       = "*.kalyanu.site"
+  domain_name       = "*.${var.zone_name}"
   validation_method = "DNS"
 
   tags = merge(
