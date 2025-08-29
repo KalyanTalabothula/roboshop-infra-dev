@@ -22,7 +22,9 @@ module "frontend_alb" {
 resource "aws_lb_listener" "frontend_alb" {
   load_balancer_arn = module.frontend_alb.arn # arn--> amazon resources name, oka single output ID
   port              = "443"  # 80 --> HTTP, 443 --> HTTPS
-  protocol          = "HTTPS"
+  protocol          = "HTTPS" 
+  ssl_policy        = "ELBSecurityPolicy-2016-08" # <-- Terraform vallu Documention update cheyaledu  
+  certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
 
   default_action {
     type = "fixed-response"
