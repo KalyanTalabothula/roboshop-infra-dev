@@ -1,5 +1,5 @@
-resource "aws_ssm_parameter" "backend_alb_listener_arn" {
-  name  = "/${var.project}/${var.environment}/backend_alb_listener_arn"
+resource "aws_ssm_parameter" "frontend_alb_listener_arn" {
+  name  = "/${var.project}/${var.environment}/frontend_alb_listener_arn"
   type  = "String"
-  value = aws_lb_listener.backend_alb.arn  # so it will export the listeners
+  value = aws_lb_listener.frontend_alb.arn  # so it will export the listeners
 }
