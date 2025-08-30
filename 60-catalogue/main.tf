@@ -143,7 +143,7 @@ resource "aws_launch_template" "catalogue" {
 # 👉 So in your code: That’s why you mentioned { tag_specifications } only for instance and volume – because those are the ones that need tagging at creation time. The launch template itself is tagged separately using { tags }.
 
 # 🔍 aws autoscaling group terraform 
-resource "aws_autoscaling_group" "example" {
+resource "aws_autoscaling_group" "catalogue" {
     name                 = "${var.project}-${var.environment}-catalogue"
   desired_capacity   = 1
   max_size           = 10     # you wish
