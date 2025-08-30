@@ -221,3 +221,78 @@ resource "aws_lb_listener_rule" "catalogue" {
 }
 
 
+/* 🔄 Steps in Terraform Code (Catalogue Component)
+
+1. Target Group create chesavu
+
+Resource: aws_lb_target_group
+ALB ki backend instances attach ayye group.
+Health check path = /health.
+
+2. Catalogue EC2 instance create chesavu
+
+Resource: aws_instance
+Security group + subnet ivvali.
+Catalogue app run avvadaniki instance ready chestam.
+
+3. EC2 lo script run cheyadaniki provisioner vaddam
+
+Resource: terraform_data with file & remote-exec
+catalogue.sh copy + execute.
+App configure avvadaniki.
+
+4. Instance stop cheyyadam
+
+Resource: aws_ec2_instance_state
+App configure ayyindi.
+Instance stop cheyyali (AMI create cheyyadaniki).
+
+5. AMI create cheyyadam from instance
+
+Resource: aws_ami_from_instance
+Instance stop aina tarvata AMI ready chestam.
+
+6. Instance terminate cheyyadam
+
+Resource: terraform_data with local-exec
+AMI create ayyindi.
+Unnecessary instance terminate chesavu.
+
+7. Launch Template create chesavu
+
+Resource: aws_launch_template
+AMI id + Security group + tags define chesavu.
+Ee template ni ASG use chestundi.
+
+8. AutoScaling Group (ASG) create chesavu
+
+Resource: aws_autoscaling_group
+Desired = 1, min = 1, max = 10.
+Launch template attach chesavu.
+ALB target group connect chesavu.
+Health check & rolling update configure chesavu.
+
+9. AutoScaling Policy add chesavu
+
+Resource: aws_autoscaling_policy
+CPU utilization 75% target tracking.
+Scale out/in avvadaniki.
+
+10. Listener Rule create chesavu
+
+Resource: aws_lb_listener_rule
+ALB lo catalogue requests (domain match → catalogue.backend-dev...).
+Correct target group ki forward chestundi.
+
+📝 In Short Sequence:
+
+Create Target Group
+Create EC2 instance (app configure cheyadam)
+Stop instance → take AMI → terminate instance
+Create Launch Template with that AMI
+Create AutoScaling Group attached to target group
+Attach Scaling Policy (CPU based)
+Create Listener Rule in ALB
+
+👉 Easy ga gurthupettuko:
+TG → EC2 → AMI → LT → ASG → Policy → Listener 🚀 */
