@@ -152,7 +152,7 @@ resource "aws_autoscaling_group" "catalogue" {
   vpc_zone_identifier = local.private_subnet_ids # both private-subnets we are giving 
   health_check_grace_period = 90 # Launch chesina instance oka 90sec time istumdhi, then it will start health check
   health_check_type = "ELB" # ELB 0r ALB both are same names only. 
-
+  # health check type 2- options unnae: EC2 ani este direct gha ASG monitor chestumdhi EC2 nii, In case ALB ani este, so EC2 ni direct monitor cheyadu. so aa ASG will directly respond I means health check report from somebody else dhani batti so ASG grace period ina tarawata, so it will gonna check EC2-instances, then it will refrashes. 
   launch_template {
     id      = aws_launch_template.catalogue.id
     version = aws_launch_template.catalogue.latest_version
