@@ -5,7 +5,7 @@ resource "aws_lb_target_group" "catalogue" {
   port     = 8080  # catalogue port no 8080 ni open chestunamdhi
   protocol = "HTTP"  # Load-balancer catalogue ni hit chesetappudu HTTP pina hit chestumdhi 
   vpc_id   = local.vpc_id
-  deregistration_delay = 120
+  deregistration_delay = 120  # just like notice period
 
   health_check {
     healthy_threshold = 2 
