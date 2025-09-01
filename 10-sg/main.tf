@@ -589,6 +589,7 @@ resource "aws_security_group_rule" "bastion_laptop" {
 }
 
 #VPN ports 22, 443, 1194, 943
+# VPN gives {{ network access }}; SSH gives {{ server access }} 
 resource "aws_security_group_rule" "vpn_ssh" {
   type              = "ingress"
   from_port         = 22
