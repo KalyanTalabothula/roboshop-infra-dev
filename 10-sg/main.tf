@@ -626,6 +626,19 @@ resource "aws_security_group_rule" "vpn_943" {
   security_group_id = module.vpn.sg_id
 }
 
+/* 🔹 Port 22 → SSH (Secure Shell)
+Idi server lo login avvadaniki / remote commands run cheyadaniki use chestaru.
+Ante, manam bastion server ki (or direct ga VM ki) connect ayyi, ls, cat, systemctl lantivi cheyalanukunte port 22 open undali.
+VPN ki sambandham ledu – VPN ki vere ports untai (1194, 443 etc).
+
+👉 So, Port 22 manam use chestam ONLY when we want to log in to the server (via SSH).
+👉 Database connect ki kadu, VPN connect ki kadu.
+
+Kani oka situation lo:
+
+VPN direct ga DB (27017) open chesthe → SSH (22) need ledu.
+VPN lo kuda DB port block chesthe → bastion server lo login (SSH → 22) ayyi, akkanunchi DB ki connect avvali. */
+
 # backend ALB accepting connections from my bastion host on port no 80
 /* resource "aws_security_group_rule" "backend_alb_bastion" {
   type              = "ingress"
