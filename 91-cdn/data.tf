@@ -1,3 +1,5 @@
+
+# 🔍 aws cdn cache policy data source
 data "aws_cloudfront_cache_policy" "cacheEnable" {
   name = "Managed-CachingOptimized"  # Replace with the name of your cache policy
 }
