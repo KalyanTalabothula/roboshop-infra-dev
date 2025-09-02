@@ -21,7 +21,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "cdn.${var.zone_name}"
 
-    viewer_protocol_policy = "https-only"
+    viewer_protocol_policy = "https-only"       # <---
     cache_policy_id  = data.aws_cloudfront_cache_policy.cacheDisable.id
   }
 
@@ -32,7 +32,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "cdn.${var.zone_name}"
 
-    viewer_protocol_policy = "https-only"
+    viewer_protocol_policy = "https-only"       # <---
     cache_policy_id  = data.aws_cloudfront_cache_policy.cacheEnable.id
   }
 
