@@ -152,7 +152,7 @@ resource "aws_autoscaling_group" "catalogue" {
   vpc_zone_identifier = local.private_subnet_ids # both private-subnets we are giving 
   health_check_grace_period = 90 # Launch chesina instance oka 90sec time istumdhi, then it will start health check
   health_check_type = "ELB" # ELB 0r ALB both are same names only. 
-  # health check type 2- options unnae: EC2 ani este direct gha ASG monitor chestumdhi EC2 nii, In case ALB ani este, so EC2 ni direct monitor cheyadu. so aa ASG will directly respond I means health check report from somebody else dhani batti so ASG grace period ina tarawata, so it will gonna check EC2-instances, then it will refrashes. 
+  # An EC2 health check only verifies whether the instance itself is running at the operating system level (OS), like checking if the virtual machine (VM) is on or off. The issue is that even if the server is up, your application inside (such as nginx, Java, or a database) might be down, and the Auto Scaling Group won’t detect it. On the other hand, an ELB health check goes deeper by sending requests (like an HTTP ping to /health) to confirm that the application inside the instance is actually working. If the application fails, the ELB marks the instance unhealthy, and the Auto Scaling Group replaces it. In simple terms, EC2 health checks only test the machine, while ELB health checks validate both the machine and the application, making ELB checks more reliable.
   launch_template {
     id      = aws_launch_template.catalogue.id
     version = aws_launch_template.catalogue.latest_version
