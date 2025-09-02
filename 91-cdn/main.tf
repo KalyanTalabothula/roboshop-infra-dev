@@ -22,7 +22,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     target_origin_id = "cdn.${var.zone_name}"
 
     viewer_protocol_policy = "https-only"       # <---
-    cache_policy_id  = data.aws_cloudfront_cache_policy.cacheDisable.id
+    cache_policy_id  = data.aws_cloudfront_cache_policy.cacheDisable.id  # default lo Disable estamu
   }
 
   # Cache behavior with precedence 0
