@@ -44,7 +44,7 @@ resource "aws_lb_listener" "frontend_alb" {
 # aws record terraform then take alias record example 
 resource "aws_route53_record" "frontend_alb" {
   zone_id = var.zone_id
-  name    = "*.${var.zone_name}"  # <-- *.daws84s.site
+  name    = "${var.environment}.${var.zone_name}"  # <-- dev.daws84s.site,   *.daws84s.site
   type    = "A"
 
   alias {
